@@ -1,55 +1,104 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+int main(){
 
-# Linker output
-*.ilk
-*.map
-*.exp
+             
+printf("     .-----.                             \n");
+printf("   .' -   - '.                           \n");
+printf("  /  .-. .-.  \\                         \n");
+printf("  |  | | | |  |                          \n");
+printf("   \\ \\o/ \\o/ /                        \n");
+printf("  _/    ^    \\_                         \n");
+printf(" | \\  '---'  / |                        \n");
+printf(" / /`--. .--`\\ \\       BEM VINDO       \n");
+printf("/ /'---` `---'\\ \\          AO          \n");
+printf("'.__.       .__.'        JOGO DA         \n");
+printf("    `|     |`           ADIVINHACAO      \n");
+printf("     |     \\                            \n");
+printf("     \\      '--.                        \n");
+printf("      '.        `\\                      \n");
+printf("        `'---.   |                       \n");
+printf("           ,__) /                        \n");
+printf("            `..'                         \n");
+printf("\n\n");
 
-# Precompiled Headers
-*.gch
-*.pch
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+    int segundos = time(0);
+    srand(segundos);
+    int no = rand();
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+    int numerooculto = no % 100;
+    int chute;
+    int tentativas = 1;
+    double pontuacao = 1000;
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+    int acertou = 0;
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+    int nivel;
+    
+    printf("Qual a Dificuldade que deseja jogar?\n");
+    printf("(1)Facil (2)Medio (3)Dificil\n\n");
+    printf("Escolhar: ");
+    scanf("%d", &nivel);
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+    int numerodetentativas;
 
-# debug information files
-*.dwo
+    switch(nivel){
+        case 1:
+            numerodetentativas = 18;
+            break;
+        case 2: 
+            numerodetentativas = 13;
+            break;
+        default:
+            numerodetentativas = 6;
+            break;
+    }
+    
+    //for(int i = 1; i <= TENTATIVAS; i++){ 
+    for(int i = 1; i <= numerodetentativas; i++){
+        
+        printf("\nDigite o %d chute: ", tentativas);
+        scanf("%d", &chute);
+        printf("Seu numero foi %d\n", chute);
+
+        if(chute < 0){
+            printf("não pode numero negativo!\n");
+            continue;
+        }
+        
+        acertou = (chute == numerooculto);
+        int maior = chute > numerooculto;
+        if(acertou){
+    
+          break;
+        }
+        
+        else if(maior){
+            printf("EH um numero mais baixo\n");
+        }
+        
+        else{
+            printf("EH um numero mais alto\n");
+        }
+        
+        tentativas++;   
+
+        double pontosperdidos = abs(chute - numerooculto) / (double)2;
+        pontuacao = pontuacao - pontosperdidos;
+    }
+    
+    if(acertou){
+        printf("Voce Ganhou!");
+        printf("\nVoce acertou em %d tentativas!\n", tentativas);
+        printf("Total de pontos %.2f\n", pontuacao);
+        
+    }
+    else{
+        printf("Voce Perdeu\n");
+    }
+    printf("Fim de jogo, jogue novamente!"); 
+    return 0;
+}
